@@ -67,6 +67,7 @@ module.exports = {
                     }
                 ],
                 "no-nested-ternary": "off",
+                "unicorn/no-nested-ternary": "off",
                 "no-unneeded-ternary": "warn"
             }
         }
