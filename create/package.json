@@ -1,11 +1,11 @@
 {
-    "name": "create-eslint-lvksh",
-    "repository": "https://github.com/lvkdotsh/javascript",
+    "name": "create-eslint-antony",
+    "repository": "https://github.com/antony1060/lint",
     "version": "1.0.0",
     "main": "./lib/index.js",
     "license": "MIT",
     "bin": {
-        "create-eslint-lvksh": "./index.js"
+        "create-eslint-antony": "./index.js"
     },
     "files": ["index.js", "src", "lib"],
     "scripts": {

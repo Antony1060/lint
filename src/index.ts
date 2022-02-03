@@ -34,7 +34,7 @@ module.exports = {
                     {
                         blankLine: "always",
                         prev: "*",
-                        next: ["return", "if", "switch", "try", "for"]
+                        next: ["if", "switch", "try", "for"]
                     },
                     {
                         blankLine: "always",

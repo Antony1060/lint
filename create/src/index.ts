@@ -19,6 +19,7 @@ type PrettierMock = {
     tabWidth?: number;
     useTabs?: boolean;
     singleQuote?: boolean;
+    trailingComma?: string;
 };
 
 const log = createLogger(
@@ -83,10 +84,10 @@ const setupESLintRC = async () => {
         parser: '@typescript-eslint/parser',
         parserOptions: { ecmaVersion: 2021 },
         extends: [
-            ...new Set([...(mock.extends || []), 'plugin:lvksh/recommended']),
+            ...new Set([...(mock.extends || []), 'plugin:antony/recommended']),
         ],
         ignorePatterns: ['!**/*'],
-        plugins: [...new Set([...(mock.plugins || []), 'lvksh'])],
+        plugins: [...new Set([...(mock.plugins || []), 'antony'])],
         env: {
             node: true,
         },
@@ -121,7 +122,8 @@ const setupPrettier = async () => {
         ...mock,
         tabWidth: 4,
         useTabs: false,
-        singleQuote: true,
+        singleQuote: false,
+        trailingComma: "none"
     };
 
     // Write the updated/new file to disk
@@ -163,8 +165,9 @@ const setupPackageJSON = async (path: string) => {
     log['⭐'](chalk.magenta`eslint-plugin-lvksh` + ' installer');
     log.empty(chalk.yellowBright('-'.repeat(40)));
     log.empty(
-        'Authored by ' + chalk.gray`@lvksh`,
-        'github.com/lvksh/javascript',
+        'Authored by ' + chalk.gray`@lvksh (Mod @antony1060)`,
+        'Original: ' + chalk.blueBright`github.com/lvkdotsh/javascript`,
+        "Fork: " + chalk.greenBright`github.com/antony1060/lint`,
         ''
     );
 
@@ -194,7 +197,7 @@ const setupPackageJSON = async (path: string) => {
 
     const packages = [
         'eslint',
-        'eslint-plugin-lvksh',
+        'eslint-plugin-antony',
         'typescript',
         '@typescript-eslint/parser',
     ];
