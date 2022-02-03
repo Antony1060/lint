@@ -1,19 +1,21 @@
 # Javascript Style Guide
 
-The Official [lvkdotsh](https://github.com/lvkdotsh) javascript/typescript style-guide and linting rules.
+My preffered JS/TS linting rules.
+
+Forked from [lvkdotsh](https://github.com/lvkdotsh)
 
 ## Installation
 
 Using `npm`:
 
 ```sh
-npm install --save-dev eslint eslint-plugin-lvksh
+npm install --save-dev eslint eslint-plugin-antony
 ```
 
 or if you prefer to use the `yarn` package manager:
 
 ```sh
-yarn add -D eslint eslint-plugin-lvksh
+yarn add -D eslint eslint-plugin-antony
 ```
 
 ## Usage
@@ -26,10 +28,10 @@ Recommended `.eslintrc.json`:
         "ecmaVersion": 2021
     },
     "extends": [
-        "plugin:lvksh/recommended"
+        "plugin:antony/recommended"
     ],
     "ignorePatterns": ["!**/*"],
-    "plugins": ["lvksh"],
+    "plugins": ["antony"],
     "env": {
         "node": true
     },
@@ -53,13 +55,14 @@ In addition to the above a `.prettierrc` file is also recommended with the follo
 {
     "tabWidth": 4,
     "useTabs": false,
-    "singleQuote": true
+    "singleQuote": false,
+    "trailingComma": "none"
 }
 ```
 
 ## Contributors
 
-[![](https://contrib.rocks/image?repo=lvkdotsh/javascript)](https://github.com/lvkdotsh/javascript/graphs/contributors)
+[![](https://contrib.rocks/image?repo=antony1060/lint)](https://github.com/antony1060/lint/graphs/contributors)
 
 ## LICENSE
 
