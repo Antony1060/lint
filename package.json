@@ -1,7 +1,7 @@
 {
-    "name": "eslint-plugin-lvksh",
+    "name": "eslint-plugin-antony",
     "main": "lib/index.js",
-    "repository": "https://github.com/lvkdotsh/javascript",
+    "repository": "https://github.com/antony1060/lint",
     "author": "Lucemans <luc@lucemans.nl>",
     "license": "MIT",
     "devDependencies": {
