@@ -338,17 +338,10 @@ eslint-config-prettier@^8.3.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-plugin-jest@^25.3.4:
-  version "25.3.4"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-25.3.4.tgz#2031dfe495be1463330f8b80096ddc91f8e6387f"
-  integrity sha512-CCnwG71wvabmwq/qkz0HWIqBHQxw6pXB1uqt24dxqJ9WB34pVg49bL1sjXphlJHgTMWGhBjN1PicdyxDxrfP5A==
-  dependencies:
-    "@typescript-eslint/experimental-utils" "^5.0.0"
-
-eslint-plugin-lvksh@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-lvksh/-/eslint-plugin-lvksh-1.2.5.tgz#7565d8fb5a1d3f3848dbbc2e862236f3d1b751ac"
-  integrity sha512-Ep8T0fhxHQ6ptnpT/Oc4SWKW9WVve4yWzdJQhG0ccQTBJV7s+pF4Xe3dRw0ZelPV3uMfbOAnfXDeN6j77Pcdgw==
+eslint-plugin-antony@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-antony/-/eslint-plugin-antony-1.2.9.tgz#f3f9efc825186712c89899a295b048d1b9c919b9"
+  integrity sha512-Z93BXwmj34SRUpxdoRVbEwHZ5f3D/6/1iRvIFOD97vNjChLuyZQYXkoMMcdJq4VXLkvoJ/0v3H52j+Ww/3V2pA==
   dependencies:
     "@typescript-eslint/parser" "^5.9.0"
     eslint-config-prettier "^8.3.0"
@@ -358,6 +351,13 @@ eslint-plugin-lvksh@^1.2.5:
     eslint-plugin-sonarjs "^0.11.0"
     eslint-plugin-unicorn "^40.0.0"
     prettier "^2.5.1"
+
+eslint-plugin-jest@^25.3.4:
+  version "25.3.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-25.3.4.tgz#2031dfe495be1463330f8b80096ddc91f8e6387f"
+  integrity sha512-CCnwG71wvabmwq/qkz0HWIqBHQxw6pXB1uqt24dxqJ9WB34pVg49bL1sjXphlJHgTMWGhBjN1PicdyxDxrfP5A==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^5.0.0"
 
 eslint-plugin-prettier@^4.0.0:
   version "4.0.0"

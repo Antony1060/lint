@@ -1,9 +1,9 @@
-import { createLogger } from '@lvksh/logger';
-import chalk from 'chalk';
-import { exec } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { readFile, stat, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { createLogger } from "@lvksh/logger";
+import chalk from "chalk";
+import { exec } from "node:child_process";
+import { existsSync } from "node:fs";
+import { readFile, stat, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 
 type ESLintMock = {
     parser?: string;
@@ -24,81 +24,81 @@ type PrettierMock = {
 
 const log = createLogger(
     {
-        '🚀': '🚀',
-        '⚙️': '⚙️ ',
-        '🔧': '🔧',
-        '🌿': '🌿',
-        '💨': '💨',
-        '⭐': '⭐',
+        "🚀": "🚀",
+        "⚙️": "⚙️ ",
+        "🔧": "🔧",
+        "🌿": "🌿",
+        "💨": "💨",
+        "⭐": "⭐",
         empty: {
-            label: '  ',
-        },
+            label: "  "
+        }
     },
     {
-        divider: ' ',
-        newLine: '  ',
-        newLineEnd: '  ',
-        padding: 'NONE',
+        divider: " ",
+        newLine: "  ",
+        newLineEnd: "  ",
+        padding: "NONE"
     }
 );
 
 const noPackage = () => {
-    log.empty('', '');
-    log['💨'](chalk.redBright.bold`Oh no!`);
-    log.empty(chalk.yellowBright('-'.repeat(40)));
+    log.empty("", "");
+    log["💨"](chalk.redBright.bold`Oh no!`);
+    log.empty(chalk.yellowBright("-".repeat(40)));
     log.empty(
-        'It appears you are not in a project 🤷',
-        'Try ' + chalk.gray`yarn init` + ' or ' + chalk.gray`npm init`,
-        ''
+        "It appears you are not in a project 🤷",
+        "Try " + chalk.gray`yarn init` + " or " + chalk.gray`npm init`,
+        ""
     );
 };
 
 const findPackageJson = async (path: string) => {
-    if (existsSync(join(path, 'package.json')))
-        return join(path, 'package.json');
+    if (existsSync(join(path, "package.json")))
+        return join(path, "package.json");
 
     if (path.length <= 1) return;
 
-    return findPackageJson(join(path, '..'));
+    return findPackageJson(join(path, ".."));
 };
 
 const setupESLintRC = async () => {
     let mock: ESLintMock = {};
 
-    const exists = await stat('.eslintrc.json').catch(() => false);
+    const exists = await stat(".eslintrc.json").catch(() => false);
 
     if (exists) {
         log.empty(
-            `Found existing ${chalk.gray('.eslintrc.json')}, modifying...`
+            `Found existing ${chalk.gray(".eslintrc.json")}, modifying...`
         );
 
-        const oldFile = await readFile('.eslintrc.json');
+        const oldFile = await readFile(".eslintrc.json");
 
         mock = JSON.parse(oldFile.toString()) as ESLintMock;
     } else {
-        log.empty('Generating ' + chalk.gray`.eslintrc.json`);
+        log.empty("Generating " + chalk.gray`.eslintrc.json`);
     }
 
     const updatedLint: ESLintMock = {
         ...mock,
-        parser: '@typescript-eslint/parser',
+        parser: "@typescript-eslint/parser",
         parserOptions: { ecmaVersion: 2021 },
         extends: [
-            ...new Set([...(mock.extends || []), 'plugin:antony/recommended']),
+            ...new Set([...(mock.extends || []), "plugin:antony/recommended"])
         ],
-        ignorePatterns: ['!**/*'],
-        plugins: [...new Set([...(mock.plugins || []), 'antony'])],
+        ignorePatterns: ["!**/*"],
+        plugins: [...new Set([...(mock.plugins || []), "antony"])],
         env: {
-            node: true,
+            node: true
         },
         rules: {
-            ...(mock.rules || []),
-        },
+            ...(mock.rules || [])
+        }
     };
 
     // Write the updated/new file to disk
     await writeFile(
-        '.eslintrc.json',
+        ".eslintrc.json",
         JSON.stringify(updatedLint, undefined, 4)
     );
 };
@@ -106,16 +106,16 @@ const setupESLintRC = async () => {
 const setupPrettier = async () => {
     let mock: PrettierMock = {};
 
-    const exists = await stat('.prettierrc').catch(() => false);
+    const exists = await stat(".prettierrc").catch(() => false);
 
     if (exists) {
-        log.empty(`Found existing ${chalk.gray('.prettierrc')}, modifying...`);
+        log.empty(`Found existing ${chalk.gray(".prettierrc")}, modifying...`);
 
-        const oldFile = await readFile('.prettierrc');
+        const oldFile = await readFile(".prettierrc");
 
         mock = JSON.parse(oldFile.toString()) as PrettierMock;
     } else {
-        log.empty('Generating ' + chalk.gray`.prettierrc`);
+        log.empty("Generating " + chalk.gray`.prettierrc`);
     }
 
     const BestData: PrettierMock = {
@@ -127,22 +127,22 @@ const setupPrettier = async () => {
     };
 
     // Write the updated/new file to disk
-    await writeFile('.prettierrc', JSON.stringify(BestData, undefined, 4));
+    await writeFile(".prettierrc", JSON.stringify(BestData, undefined, 4));
 };
 
 const setupPackageJSON = async (path: string) => {
     if (!path || path.length === 0) {
         log.empty(
             chalk.yellow`Skipped` +
-                ' Setting up ' +
+                " Setting up " +
                 chalk.gray`lint` +
-                ' script.'
+                " script."
         );
 
         return;
     }
 
-    log.empty('Setting up ' + chalk.gray`lint` + ' script...');
+    log.empty("Setting up " + chalk.gray`lint` + " script...");
     const rawPackageData = await readFile(path);
     const packageData: { scripts?: { [key: string]: string } } = JSON.parse(
         rawPackageData.toString()
@@ -152,37 +152,37 @@ const setupPackageJSON = async (path: string) => {
         ...packageData,
         scripts: {
             ...packageData.scripts,
-            lint: 'eslint -c .eslintrc.json --ext .ts ./src',
-        },
+            lint: "eslint -c .eslintrc.json --ext .ts ./src"
+        }
     };
 
     await writeFile(path, JSON.stringify(updatedPackageData, undefined, 4));
 };
 
 (async () => {
-    log.empty('', '');
+    log.empty("", "");
 
-    log['⭐'](chalk.magenta`eslint-plugin-lvksh` + ' installer');
-    log.empty(chalk.yellowBright('-'.repeat(40)));
+    log["⭐"](chalk.magenta`eslint-plugin-lvksh` + " installer");
+    log.empty(chalk.yellowBright("-".repeat(40)));
     log.empty(
-        'Authored by ' + chalk.gray`@lvksh (Mod @antony1060)`,
-        'Original: ' + chalk.blueBright`github.com/lvkdotsh/javascript`,
+        "Authored by " + chalk.gray`@lvksh (Mod @antony1060)`,
+        "Original: " + chalk.blueBright`github.com/lvkdotsh/javascript`,
         "Fork: " + chalk.greenBright`github.com/antony1060/lint`,
-        ''
+        ""
     );
 
     await new Promise<void>((reply) => setTimeout(reply, 1000));
 
-    log['🌿']('Relaxing....');
-    log.empty(chalk.yellowBright('-'.repeat(40)));
+    log["🌿"]("Relaxing....");
+    log.empty(chalk.yellowBright("-".repeat(40)));
 
-    log.empty('Analyzing ' + chalk.gray`project settings`);
+    log.empty("Analyzing " + chalk.gray`project settings`);
     const packageJSONLocation = await findPackageJson(process.cwd());
 
     log.empty(
         packageJSONLocation
-            ? 'Looks good 👍'
-            : 'Could not find project files 👀'
+            ? "Looks good 👍"
+            : "Could not find project files 👀"
     );
 
     if (!packageJSONLocation) {
@@ -191,39 +191,38 @@ const setupPackageJSON = async (path: string) => {
         return;
     }
 
-    log.empty('');
-    log['🔧']('Building...');
-    log.empty(chalk.yellowBright('-'.repeat(40)));
+    log.empty("");
+    log["🔧"]("Building...");
+    log.empty(chalk.yellowBright("-".repeat(40)));
 
     const packages = [
-        'eslint',
-        'eslint-plugin-antony',
-        'typescript',
-        '@typescript-eslint/parser',
+        "eslint",
+        "eslint-plugin-antony",
+        "typescript",
+        "@typescript-eslint/parser"
     ];
 
     for (const packageToInstall of packages) {
-        log.empty('Installing ' + chalk.gray(packageToInstall));
+        log.empty("Installing " + chalk.gray(packageToInstall));
         await new Promise<boolean>((accept) =>
-            exec('yarn add -D ' + packageToInstall, (error, stdout, stderr) => {
-                // log.empty(stdout, stderr);
+            exec("yarn add -D " + packageToInstall, () => {
                 accept(true);
             })
         );
     }
 
     log.empty();
-    log['⚙️']('Configuring...');
-    log.empty(chalk.yellowBright('-'.repeat(40)));
+    log["⚙️"]("Configuring...");
+    log.empty(chalk.yellowBright("-".repeat(40)));
 
     await setupESLintRC();
     await setupPrettier();
     await setupPackageJSON(packageJSONLocation);
 
-    log.empty('');
-    log.empty(chalk.yellowBright('-'.repeat(40)));
-    log.empty('');
-    log['🚀'](chalk.cyan`Off to the races!`);
+    log.empty("");
+    log.empty(chalk.yellowBright("-".repeat(40)));
+    log.empty("");
+    log["🚀"](chalk.cyan`Off to the races!`);
 
-    log.empty('', '');
+    log.empty("", "");
 })();
